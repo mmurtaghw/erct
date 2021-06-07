@@ -1,0 +1,645 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/matt/ontologies/2021/1/untitled-ontology-2#"
+     xml:base="http://www.semanticweb.org/matt/ontologies/2021/1/untitled-ontology-2"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/ERCT"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#attributedTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#attributedTo">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#clusteredBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#clusteredBy">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#conductedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#conductedBy">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#generatedAtTime -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#generatedAtTime">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#generatedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#generatedBy">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasExperimentalDesignType -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#hasExperimentalDesignType">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasIntervention -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#hasIntervention">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasMethodology -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#hasMethodology">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasProvenenceInfo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#hasProvenenceInfo">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasPublicationInfo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#hasPublicationInfo">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasSampling -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#hasSampling">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasTimespan -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#hasTimespan">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasTreatmentArm -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#hasTreatmentArm">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasTreatmentVar -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#hasTreatmentVar">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#performedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#performedBy">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#statifiedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#statifiedBy">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#tookPlaceIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#tookPlaceIn">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#used -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#used">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#wasInformedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ERCT#wasInformedBy">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasAffiliation -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasAffiliation">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasControlGroupSize -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasControlGroupSize">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasDOI -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasDOI">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasEmail -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasEmail">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasEndDate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasEndDate">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasJELcode -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasJELcode">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasName">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasNoOfClusters -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasNoOfClusters">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasPValue -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasPValue">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasPower -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasPower">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasSampleSize -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasSampleSize">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasStartDate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasStartDate">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasTreatmentEffect -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasTreatmentEffect">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#hasTreatmentGroupSize -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#hasTreatmentGroupSize">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#isControl -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#isControl">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#isPrimaryREsearcher -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#isPrimaryREsearcher">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#isPublished -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ERCT#isPublished">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#Agent -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#Agent"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#ClusterUnitType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#ClusterUnitType"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#Clustered -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#Clustered">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ERCT#Sampling"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#clusteredBy"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#ClusterUnitType"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasNoOfClusters"/>
+                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#Country -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#Country"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#EntityWithProvenence -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#EntityWithProvenence">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#attributedTo"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#Agent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#generatedAtTime"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#Timespan"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#generatedBy"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#ProvenanceActivity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#ExperimentalDesignType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#ExperimentalDesignType"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#Intervention -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#Intervention"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#Methodology -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#Methodology">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasExperimentalDesignType"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#ExperimentalDesignType"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasSampling"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#Sampling"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasPower"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#ProvenanceActivity -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#ProvenanceActivity">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#wasInformedBy"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#ProvenanceActivity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#used"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#EntityWithProvenence"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#Random -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#Random">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ERCT#Sampling"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#RandomisedControlledTrial -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#RandomisedControlledTrial">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#conductedBy"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#Researcher"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasProvenenceInfo"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#EntityWithProvenence"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasPublicationInfo"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#publicationInfo"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasSampling"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#Sampling"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasTreatmentArm"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#TreatmentArm"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#Researcher -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#Researcher">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ERCT#Agent"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasAffiliation"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasEmail"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasEmail"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasName"/>
+                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#Sampling -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#Sampling"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#Stratified -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#Stratified">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ERCT#Sampling"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#statifiedBy"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#demographicVariable"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#Timespan -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#Timespan">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasEndDate"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasStartDate"/>
+                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#TreatmentArm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#TreatmentArm">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasIntervention"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#Intervention"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#tookPlaceIn"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#Country"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasTimespan"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#Timespan"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasTreatmentVar"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/ERCT#TreatmentVar"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasSampleSize"/>
+                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#isControl"/>
+                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#TreatmentVar -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#TreatmentVar">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasPValue"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ERCT#hasTreatmentEffect"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#demographicVariable -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#demographicVariable"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ERCT#publicationInfo -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ERCT#publicationInfo"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
