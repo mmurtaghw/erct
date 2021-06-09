@@ -16,6 +16,49 @@
 	""" ;
 .
 
+<#ExtractJel>
+	rrf:functionName "extractJel" ;
+	rrf:functionBody """
+		function extractJel(var1) {
+		if (var1 == null){
+		return null;
+		}
+		//print("1")
+		var re = /(\\w\\d\\d){1}/g;
+		var output = [];
+		while ((match =  re.exec(var1)) !== null) {
+ 		    //print(match);	
+ 		    output.push(match[0]);
+		}
+		//print(output);
+		return(String(output));
+	} 
+	""" ;
+.
+
+<#ExtractDate>
+	rrf:functionName "extractDate" ;
+	rrf:functionBody """
+		function extractDate(date) {
+		
+		    var month = date.slice(0,2);
+		    var day = date.slice(3,5);	
+		    var year = date.slice(6,10);	
+		    //print(month);
+		    //print(day);
+		    //print(year);
+		    newDate = day + "/" + month + "/" + year;
+		    print(newDate);
+		    var d = new Date(newDate),
+			month = '' + (d.getMonth() + 1),
+			day = '' + d.getDate(),
+			year = d.getFullYear();
+		    print(d);
+
+		    return d;
+}
+	""" ;
+.
 
 <#DOITripleMap>
 	a rr:TriplesMap ;
@@ -43,17 +86,12 @@
 	] ;
 
 	rr:predicateObjectMap [
-		rr:predicate erct:hasJelcode ;
-		rr:objectMap [ rr:column "JEL" ]
-	] ;
-	rr:predicateObjectMap [
 		rr:predicate erct:hasJELcode ;
 		rr:objectMap    [
 	        rrf:functionCall [
-	 			rrf:function <#Concat> ;
+	 			rrf:function <#ExtractJel> ;
 	 			rrf:parameterBindings (
 	 				[ rr:column "JEL" ]
-	 				[ rr:column "DOI" ]
 	 			) ;
 	 		] ; 
 	 	]
@@ -68,10 +106,40 @@
 	] ;
 	rr:subjectMap [
 		rr:template "http://www.semanticweb.org/Timespan/{RCT_ID}" ;
-		rr:class xsd:string ;
+		rr:class xsd:dateTime ;
 	] ;
 	rr:predicateObjectMap [
 		rr:predicate erct:hasStartDate ;
-		rr:objectMap [ rr:column "SDATE" ]
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractDate> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "SDATE" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+	.
+	
+	
+<#EndDateTripleMap>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, EDATE FROM trials"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Timespan/{RCT_ID}" ;
+		rr:class xsd:dateTime ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasEndDate ;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractDate> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "EDATE" ]
+	 			) ;
+	 		] ; 
+	 	]
 	] ;
 	.
