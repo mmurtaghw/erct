@@ -48,17 +48,50 @@
 		    //print(day);
 		    //print(year);
 		    newDate = day + "/" + month + "/" + year;
-		    print(newDate);
+		    //print(newDate);
 		    var d = new Date(newDate),
 			month = '' + (d.getMonth() + 1),
 			day = '' + d.getDate(),
 			year = d.getFullYear();
-		    print(d);
+		    //print(d);
 
 		    return d;
 }
 	""" ;
 .
+
+<#ExtractResearcher>
+	rrf:functionName "extractResearcher" ;
+	rrf:functionBody """
+		function extractResearcher(researcher) {
+		
+		    var re = /[^\\s]+\\s+[^\\s]+/;
+		    match =  re.exec(researcher);
+		    //print(researcher);
+		    //print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
+
+<#ExtractEmail>
+	rrf:functionName "extractEmail" ;
+	rrf:functionBody """
+		function extractEmail(researcher) {
+		
+		    var re = /[^\\s]+[\\w]+\\@[\\w | \\W]+/;
+		    match =  re.exec(researcher);
+		    print(researcher);
+		    print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
+
 
 <#DOITripleMap>
 	a rr:TriplesMap ;
@@ -67,11 +100,12 @@
 	] ;
 	rr:subjectMap [
 		rr:template "http://www.semanticweb.org/publicationInfo/{RCT_ID}" ;
-		rr:class xsd:string ;
+		rr:class erct:publicationInfo ;
 	] ;
 	rr:predicateObjectMap [
 		rr:predicate erct:hasDOI ;
-		rr:objectMap [ rr:column "DOI" ]
+		rr:objectMap [ rr:column "DOI" ];
+		rr:class xsd:string ;
 	] ;
 	.
 
@@ -82,7 +116,7 @@
 	] ;
 	rr:subjectMap [
 		rr:template "http://www.semanticweb.org/publicationInfo/{RCT_ID}" ;
-		rr:class xsd:string ;
+		rr:class erct:publicationInfo ;
 	] ;
 
 	rr:predicateObjectMap [
@@ -106,7 +140,7 @@
 	] ;
 	rr:subjectMap [
 		rr:template "http://www.semanticweb.org/Timespan/{RCT_ID}" ;
-		rr:class xsd:dateTime ;
+		rr:class erct:Timespan ;
 	] ;
 	rr:predicateObjectMap [
 		rr:predicate erct:hasStartDate ;
@@ -129,7 +163,7 @@
 	] ;
 	rr:subjectMap [
 		rr:template "http://www.semanticweb.org/Timespan/{RCT_ID}" ;
-		rr:class xsd:dateTime ;
+		rr:class erct:Timespan ;
 	] ;
 	rr:predicateObjectMap [
 		rr:predicate erct:hasEndDate ;
@@ -138,6 +172,54 @@
 	 			rrf:function <#ExtractDate> ;
 	 			rrf:parameterBindings (
 	 				[ rr:column "EDATE" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+	.
+	
+	
+
+<#ResearcherTripleMap>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, PRIM FROM trials"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Researcher/{RCT_ID}" ;
+		rr:class erct:Researcher ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasName ;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractResearcher> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "PRIM" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+	.
+	
+	
+
+<#EmailTripleMap>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, PRIM FROM trials"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Researcher/{RCT_ID}" ;
+		rr:class erct:Researcher ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasEmail ;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractEmail> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "PRIM" ]
 	 			) ;
 	 		] ; 
 	 	]
