@@ -76,6 +76,22 @@
 .
 
 
+<#ExtractMDE>
+	rrf:functionName "extractMDE" ;
+	rrf:functionBody """
+		function extractMDE(MDE) {
+		
+		    var re = /[^\\s]+\\s+[^\\s]+/;
+		    match =  re.exec(MDE);
+		    print(MDE);
+		    //print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
+
 <#ExtractEmail>
 	rrf:functionName "extractEmail" ;
 	rrf:functionBody """
@@ -83,8 +99,8 @@
 		
 		    var re = /[^\\s]+[\\w]+\\@[\\w | \\W]+/;
 		    match =  re.exec(researcher);
-		    print(researcher);
-		    print(match);
+		    //print(researcher);
+		    //print(match);
 
 		    return String(match);
 }
@@ -220,6 +236,30 @@
 	 			rrf:function <#ExtractEmail> ;
 	 			rrf:parameterBindings (
 	 				[ rr:column "PRIM" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+	.
+	
+	
+	
+<#MDE>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT MDE, RCT_ID FROM trials"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Sampling/{RCT_ID}" ;
+		rr:class erct:Methodology ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasMDE ;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractMDE> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "MDE" ]
 	 			) ;
 	 		] ; 
 	 	]
