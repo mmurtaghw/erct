@@ -4,7 +4,7 @@
 @prefix erct: <http://www.semanticweb.org/ERCT/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema/> .
 @prefix rrf: <http://kdeg.scss.tcd.ie/ns/rrf#>
-
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 
 
 <#Concat>
@@ -60,6 +60,21 @@
 	""" ;
 .
 
+<#ExtractDigits>
+	rrf:functionName "extractDigits" ;
+	rrf:functionBody """
+		function extractDigits(digits) {
+		
+		    var re = /\\d+/;
+		    match =  re.exec(digits);
+		    //print(digits);
+		    print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
 <#ExtractResearcher>
 	rrf:functionName "extractResearcher" ;
 	rrf:functionBody """
@@ -75,21 +90,6 @@
 	""" ;
 .
 
-
-<#ExtractMDE>
-	rrf:functionName "extractMDE" ;
-	rrf:functionBody """
-		function extractMDE(MDE) {
-		
-		    var re = /[^\\s]+\\s+[^\\s]+/;
-		    match =  re.exec(MDE);
-		    print(MDE);
-		    //print(match);
-
-		    return String(match);
-}
-	""" ;
-.
 
 
 <#ExtractEmail>
@@ -107,7 +107,35 @@
 	""" ;
 .
 
+<#ExtractCluster>
+	rrf:functionName "extractCluster" ;
+	rrf:functionBody """
+		function extractCluster(cluster) {
+		
+		    var re = /(household)|(Household)|(Village)|(village)|(school)|(School)|(District)|(district)|(firm) {1}?/;
+		    match =  re.exec(cluster);
+		    //print(cluster);
+		    print(match);
 
+		    return String(match);
+}
+	""" ;
+.
+
+<#ExtractDemVar>
+	rrf:functionName "extractDemVar" ;
+	rrf:functionBody """
+		function extractDemVar(demVar) {
+		
+		    var re = /(gender)|(Gender)|(county)|(County)|(geographic)|(exam)|(Exam){1}?/;
+		    match =  re.exec(demVar);
+		    print(demVar);
+		    print(match);
+
+		    return String(match);
+}
+	""" ;
+.
 
 <#DOITripleMap>
 	a rr:TriplesMap ;
@@ -116,15 +144,224 @@
 	] ;
 	rr:subjectMap [
 		rr:template "http://www.semanticweb.org/publicationInfo/{RCT_ID}" ;
-		rr:class erct:publicationInfo ;
 	] ;
 	rr:predicateObjectMap [
-		rr:predicate erct:hasDOI ;
-		rr:objectMap [ rr:column "DOI" ];
-		rr:class xsd:string ;
+		rr:predicateMap [ 
+		rr:constant erct:hasDOI ;
+		];
+		
+		rr:objectMap [ 
+			rr:column "DOI";
+			];
+		
 	] ;
 	.
 
+<#RCTMAP>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID FROM trials"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:hasMethodology ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:Methodology ;
+			];
+		
+	] ;
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:hasTreatmentArm ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:TreatmentArm ;
+			];
+		
+	] ;
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:hasProvenanceInfo ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:Sampling ;
+			];
+		
+	] ;	
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:conductedBy ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:Researcher ;
+			];
+		
+	] ;	
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:hasublicationInfo ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:publicationInfo ;
+			];
+		
+	] ;
+	.	
+
+
+<#CountryMapping>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, COUNTRYLEV1, COUNTRYISO FROM trials """
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Country/{RCT_ID}" ;
+		rr:class erct:Country ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasName ;
+		rr:objectMap [ rr:column "COUNTRYLEV1" ];
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasISO ;
+		rr:objectMap [ rr:column "COUNTRYISO" ];
+	] ;
+	
+	.
+
+
+<#RegionMapping>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, SUBDIVISION, SUBDIVISIONISO FROM trials """
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Region/{RCT_ID}" ;
+		rr:class erct:Country ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasName ;
+		rr:objectMap [ rr:column "SUBDIVISION" ];
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasISO ;
+		rr:objectMap [ rr:column "SUBDIVISIONISO" ];
+	] ;
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:locatedIn ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:Country ;
+			];
+		
+	] ;
+	.
+	
+	
+
+<#StratifedMap>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, EXPDESIGN, RANDOMIZATION FROM trials WHERE RANDOMIZATION ~* 'stratified' OR EXPDESIGN ~* 'stratified' """
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Stratified/{RCT_ID}" ;
+		rr:class erct:Stratified ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate rdfs:subClassOf ;
+		rr:object erct:Sampling;
+	] ;	
+	.
+	
+	
+
+<#StratificationType>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT EXPDESIGN, RANDOMIZATION, RCT_ID FROM trials WHERE (RANDOMIZATION ~* 'stratified' OR EXPDESIGN ~* 'stratified') AND (RANDOMIZATION ~* 'gender' OR RANDOMIZATION ~* 'Gender' OR RANDOMIZATION ~* 'county' OR RANDOMIZATION ~* 'County' OR RANDOMIZATION ~* 'geographic' OR RANDOMIZATION ~* 'exam' OR RANDOMIZATION ~* 'Exam')"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Stratified/{RCT_ID}" ;
+		rr:class erct:Stratified ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:stratifiedBy;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractDemVar> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "RANDOMIZATION" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+	.
+	
+
+<#SamplingMapSampleSize>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, OBS FROM trials"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Sampling/{RCT_ID}" ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasSampleSize ;
+		rr:objectMap    [
+		rrf:functionCall [
+	 			rrf:function <#ExtractDigits> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "OBS" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+	.
+	
+
+	
+<#TreatmentArmMap>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID FROM trials"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/TreatmentArm/{RCT_ID}" ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:hasTimespan ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:Timespan ;
+			];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:takesPlaceIn ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:Country ;
+			];
+		
+	] ;
+	.
+	
 <#JELTripleMap>
 	a rr:TriplesMap ;
 	rr:logicalTable [
@@ -250,18 +487,85 @@
 		rr:sqlQuery """SELECT MDE, RCT_ID FROM trials"""
 	] ;
 	rr:subjectMap [
-		rr:template "http://www.semanticweb.org/Sampling/{RCT_ID}" ;
+		rr:template "http://www.semanticweb.org/Methodology/{RCT_ID}" ;
 		rr:class erct:Methodology ;
 	] ;
 	rr:predicateObjectMap [
 		rr:predicate erct:hasMDE ;
+		rr:objectMap [ rr:column "MDE" ];
+	] ;
+	.
+	
+	
+<#RandomisationIndividual>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RANDOMIZATION, RCT_ID FROM trials WHERE RANDOMIZATION LIKE 'individual'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Randomized/{RCT_ID}" ;
+		rr:class erct:Randomized ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate rdfs:subClassOf ;
+		rr:object erct:Sampling;
+	] ;
+	.
+
+	
+<#RandomisationClustered>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT NUMCLUSTERS, RANDOMIZATION, RCT_ID FROM trials WHERE NUMCLUSTERS != '' AND NUMCLUSTERS != 'N/A' AND NUMCLUSTERS != 'NA' AND RANDOMIZATION NOT LIKE 'individual' """
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Clustered/{RCT_ID}" ;
+		rr:class erct:Clustered ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate rdfs:subClassOf ;
+		rr:object erct:Sampling;
+	] ;	
+	.
+	
+		
+<#ClusterType>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT NUMCLUSTERS, RANDOMIZATION, RCT_ID FROM trials WHERE NUMCLUSTERS != '' AND NUMCLUSTERS != 'N/A' AND NUMCLUSTERS != 'NA' AND RANDOMIZATION NOT LIKE 'individual' AND NUMCLUSTERS ~* 'village' OR NUMCLUSTERS ~* 'school' OR NUMCLUSTERS ~* 'district'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Clustered/{RCT_ID}" ;
+		rr:class erct:Clustered ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate rdfs:subClassOf ;
+		rr:object erct:Sampling;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:clusteredBy;
 		rr:objectMap    [
 	        rrf:functionCall [
-	 			rrf:function <#ExtractMDE> ;
+	 			rrf:function <#ExtractCluster> ;
 	 			rrf:parameterBindings (
-	 				[ rr:column "MDE" ]
+	 				[ rr:column "NUMCLUSTERS" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasNoOfClusters;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractDigits> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "NUMCLUSTERS" ]
 	 			) ;
 	 		] ; 
 	 	]
 	] ;
 	.
+	
+	
+erct:Researcher rdfs:subClassOf erct:Agent .
+erct:Randomized rdfs:subClassOf erct:Sampling .
