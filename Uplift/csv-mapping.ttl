@@ -53,9 +53,10 @@
 			month = '' + (d.getMonth() + 1),
 			day = '' + d.getDate(),
 			year = d.getFullYear();
-		    //print(d);
-
-		    return d;
+		    if (String(d) != "Invalid Date"){
+		    	return String(d.toISOString());
+		    }
+		    return;
 }
 	""" ;
 .
@@ -160,10 +161,11 @@
 <#RCTMAP>
 	a rr:TriplesMap ;
 	rr:logicalTable [
-		rr:sqlQuery """SELECT RCT_ID FROM trials"""
+		rr:sqlQuery """SELECT RCT_ID, TITLE FROM trials"""
 	] ;
 	rr:subjectMap [
 		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+				rr:class erct:RCT ;
 	] ;
 	rr:predicateObjectMap [
 		rr:predicateMap [ 
@@ -214,6 +216,10 @@
 			rr:constant erct:publicationInfo ;
 			];
 		
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasTitle ;
+		rr:objectMap [ rr:column "TITLE" ; rr:datatype xsd:string];
 	] ;
 	.	
 
@@ -340,6 +346,7 @@
 	] ;
 	rr:subjectMap [
 		rr:template "http://www.semanticweb.org/TreatmentArm/{RCT_ID}" ;
+				rr:class erct:TreatmentArm ;
 	] ;
 	rr:predicateObjectMap [
 		rr:predicateMap [ 
@@ -403,7 +410,9 @@
 	 			rrf:parameterBindings (
 	 				[ rr:column "SDATE" ]
 	 			) ;
+				 
 	 		] ; 
+			 rr:datatype xsd:datetime
 	 	]
 	] ;
 	.
@@ -427,6 +436,7 @@
 	 				[ rr:column "EDATE" ]
 	 			) ;
 	 		] ; 
+			 rr:datatype xsd:datetime
 	 	]
 	] ;
 	.
