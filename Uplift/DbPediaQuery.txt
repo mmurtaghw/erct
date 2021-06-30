@@ -1,0 +1,16 @@
+SELECT
+     *
+WHERE
+{
+  ?country a dbo:Country;
+            dbp:gdpPppPerCapita     ?GDP;
+            dbp:gdpPppPerCapitaRank ?GDPRank;
+            dbp:gdpNominalYear ?GDPyear;
+            dbp:hdi     ?HDI;
+            dbp:hdiYear     ?HDIyear;
+            dbp:gini ?gini;
+            dbp:giniYear ?giniYear;
+            dbo:iso31661Code ?ISO.
+
+
+}
