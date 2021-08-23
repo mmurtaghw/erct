@@ -1,0 +1,855 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dbpedia: <http://dbpedia.org/ontology/> .
+@prefix erct: <http://www.semanticweb.org/ERCT/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema/> .
+@prefix rrf: <http://kdeg.scss.tcd.ie/ns/rrf#>
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+
+<#Concat>
+	rrf:functionName "concat" ;
+	rrf:functionBody """
+		function concat(var1, var2) {
+		return var1 + " " + var2 ;
+	}
+	""" ;
+.
+
+<#ExtractJel>
+	rrf:functionName "extractJel" ;
+	rrf:functionBody """
+		function extractJel(var1) {
+		if (var1 == null){
+		return null;
+		}
+		//print("1")
+		var re = /(\\w\\d\\d){1}/g;
+		var output = [];
+		while ((match =  re.exec(var1)) !== null) {
+ 		    //print(match);	
+ 		    output.push(match[0]);
+		}
+		//print(output);
+		return(String(output));
+	} 
+	""" ;
+.
+
+<#ExtractDate>
+	rrf:functionName "extractDate" ;
+	rrf:functionBody """
+		function extractDate(date) {
+
+			if (date != null){
+		
+				var month = date.slice(0,2);
+				var day = date.slice(3,5);	
+				var year = date.slice(6,10);	
+				//print(month);
+				//print(day);
+				//print(year);
+				newDate = day + "/" + month + "/" + year;
+				//print(newDate);
+				var d = new Date(newDate),
+				month = '' + (d.getMonth() + 1),
+				day = '' + d.getDate(),
+				year = d.getFullYear();
+				//print(d);
+			}
+			else{
+				d = null;
+			}
+
+		    return d;
+}
+	""" ;
+.
+
+<#ExtractDigits>
+	rrf:functionName "extractDigits" ;
+	rrf:functionBody """
+		function extractDigits(digits) {
+		
+		    var re = /\\d+/;
+		    match =  re.exec(digits);
+		    //print(digits);
+		    print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
+<#ExtractResearcher>
+	rrf:functionName "extractResearcher" ;
+	rrf:functionBody """
+		function extractResearcher(researcher) {
+		
+		    var re = /[^\\s]+\\s+[^\\s]+/;
+		    match =  re.exec(researcher);
+		    //print(researcher);
+		    print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
+
+
+<#ExtractEmail>
+	rrf:functionName "extractEmail" ;
+	rrf:functionBody """
+		function extractEmail(researcher) {
+		
+		    var re = /[^\\s]+[\\w]+\\@[\\w | \\W]+/;
+		    match =  re.exec(researcher);
+		    //print(researcher);
+		    //print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
+<#ExtractCluster>
+	rrf:functionName "extractCluster" ;
+	rrf:functionBody """
+		function extractCluster(cluster) {
+		
+		    var re = /(household)|(Household)|(Village)|(village)|(school)|(School)|(District)|(district)|(firm) {1}?/;
+		    match =  re.exec(cluster);
+		    //print(cluster);
+		    print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
+<#ExtractDemVar>
+	rrf:functionName "extractDemVar" ;
+	rrf:functionBody """
+		function extractDemVar(demVar) {
+		
+		    var re = /(gender)|(Gender)|(county)|(County)|(geographic)|(exam)|(Exam){1}?/;
+		    match =  re.exec(demVar);
+		    print(demVar);
+		    print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
+<#DOITripleMap>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, DOI FROM merged"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/publicationInfo/{RCT_ID}" ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:hasDOI ;
+		];
+		
+		rr:objectMap [ 
+			rr:column "DOI";
+			];
+		
+	] ;
+	.
+
+<#RCTMAP>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID FROM merged"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:hasMethodology ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:Methodology ;
+			];
+		
+	] ;
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:hasTreatmentArm ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:TreatmentArm ;
+			];
+		
+	] ;
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:hasProvenanceInfo ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:Sampling;
+			];
+		
+	] ;	
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:conductedBy ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:Researcher ;
+			];
+		
+	] ;	
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:hasublicationInfo ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:publicationInfo ;
+			];
+		
+	] ;
+	.	
+
+
+
+<#TypeMappingAg>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT AGRICULTURE, RCT_ID FROM merged WHERE AGRICULTURE != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "AGRICULTURE" ];
+	] ;
+	.
+
+<#TypeMappingBeh>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT BEHAVIOR, RCT_ID FROM merged WHERE BEHAVIOR != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "BEHAVIOR" ];
+	] ;
+	.
+
+<#TypeMappingCrime>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT CRIME, RCT_ID FROM merged WHERE CRIME != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "CRIME" ];
+	] ;
+	.
+
+
+<#TypeMappingEdu>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT EDUCATION, RCT_ID FROM merged WHERE EDUCATION != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "EDUCATION" ];
+	] ;
+	.
+
+<#TypeMappingElect>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT ELECTORAL, RCT_ID FROM merged WHERE ELECTORAL != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "ELECTORAL" ];
+	] ;
+	.
+
+
+<#TypeMappingEnv>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT ENVIRONMENT, RCT_ID FROM merged WHERE ENVIRONMENT != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "ENVIRONMENT" ];
+	] ;
+	.
+
+
+
+
+<#TypeMappingFin>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT FINANCE, RCT_ID FROM merged WHERE FINANCE != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "FINANCE" ];
+	] ;
+	.
+
+<#TypeMappingFirms>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT FIRMS, RCT_ID FROM merged WHERE FIRMS != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "FIRMS" ];
+	] ;
+	.
+
+<#TypeMappingGender>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT GENDER, RCT_ID FROM merged WHERE GENDER != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "GENDER" ];
+	] ;
+	.
+
+
+<#TypeMappingGov>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT GOVERNANCE, RCT_ID FROM merged WHERE GOVERNANCE != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "GOVERNANCE" ];
+	] ;
+	.
+
+<#TypeMappingHealth>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT HEALTH, RCT_ID FROM merged WHERE HEALTH != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "HEALTH" ];
+	] ;
+	.
+
+<#TypeMappingLab>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT LAB, RCT_ID FROM merged WHERE LAB != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "LAB" ];
+	] ;
+	.
+
+<#TypeMappingLabor>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT LABOR, RCT_ID FROM merged WHERE LABOR != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "LABOR" ];
+	] ;
+	.
+
+<#TypeMappingOth>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT OTHER, RCT_ID FROM merged WHERE OTHER != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "OTHER" ];
+	] ;
+	.
+
+
+<#TypeMappingConfl>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT POSTCONFLICT, RCT_ID FROM merged WHERE POSTCONFLICT != 'FALSE'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/RCT/{RCT_ID}" ;
+		rr:class erct:RCT ;
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasType ;
+		rr:objectMap [ rr:column "POSTCONFLICT" ];
+	] ;
+	.
+
+
+<#CountryMapping>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, COUNTRYLEV1, COUNTRYISOALPHA2, COUNTRYISOALPHA3, ELECTRICITY, ACCOUNTOWNERSHIP, NATINCOME, INCOMEGROWTH, ENROLLMENTPRIMARY, INCOMEPERCAPITA, NETSAVINGS, BIRTHRATEPER1000 FROM merged """
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Country/{RCT_ID}" ;
+		rr:class erct:Country ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasName ;
+		rr:objectMap [ rr:column "COUNTRYLEV1" ];
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasISOAlpha2 ;
+		rr:objectMap [ rr:column "COUNTRYISOALPHA2" ];
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasISOAlpha3 ;
+		rr:objectMap [ rr:column "COUNTRYISOALPHA3" ];
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasElectricityCoverage ;
+		rr:objectMap [ rr:column "ELECTRICITY" ];
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasBankAccount ;
+		rr:objectMap [ rr:column "ACCOUNTOWNERSHIP" ];
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasAjdustedNationalIncome ;
+		rr:objectMap [ rr:column "NATINCOME" ];
+	] ;	
+	rr:predicateObjectMap [
+		rr:predicate erct:hasAjdustedNationalIncomeGrowth ;
+		rr:objectMap [ rr:column "INCOMEGROWTH" ];
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasAjdustedNationalIncomePerCapita ;
+		rr:objectMap [ rr:column "INCOMEPERCAPITA" ];
+	] ;		
+	rr:predicateObjectMap [
+		rr:predicate erct:hasNetSavings ;
+		rr:objectMap [ rr:column "NETSAVINGS" ];
+	] ;	
+	rr:predicateObjectMap [
+		rr:predicate erct:hasBirthRate ;
+		rr:objectMap [ rr:column "BIRTHRATEPER1000" ];
+	] ;	
+	rr:predicateObjectMap [
+		rr:predicate erct:hasPrimaryEnrollment ;
+		rr:objectMap [ rr:column "ENROLLMENTPRIMARY" ];
+	] ;	
+	.
+
+
+
+
+
+<#RegionMapping>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, SUBDIVISION, SUBDIVISIONISO FROM merged """
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Region/{RCT_ID}" ;
+		rr:class erct:Country ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasName ;
+		rr:objectMap [ rr:column "SUBDIVISION" ];
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasISO ;
+		rr:objectMap [ rr:column "SUBDIVISIONISO" ];
+	] ;
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:locatedIn ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:Country ;
+			];
+		
+	] ;
+	.
+	
+	
+
+<#StratifedMap>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, EXPDESIGN, RANDOMIZATION FROM merged WHERE RANDOMIZATION ~* 'stratified' OR EXPDESIGN ~* 'stratified' """
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Stratified/{RCT_ID}" ;
+		rr:class erct:Stratified ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate rdfs:subClassOf ;
+		rr:object erct:Sampling;
+	] ;	
+	.
+	
+	
+
+<#StratificationType>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT EXPDESIGN, RANDOMIZATION, RCT_ID FROM merged WHERE (RANDOMIZATION ~* 'stratified' OR EXPDESIGN ~* 'stratified') AND (RANDOMIZATION ~* 'gender' OR RANDOMIZATION ~* 'Gender' OR RANDOMIZATION ~* 'county' OR RANDOMIZATION ~* 'County' OR RANDOMIZATION ~* 'geographic' OR RANDOMIZATION ~* 'exam' OR RANDOMIZATION ~* 'Exam')"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Stratified/{RCT_ID}" ;
+		rr:class erct:Stratified ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:stratifiedBy;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractDemVar> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "RANDOMIZATION" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+	.
+	
+
+<#SamplingMapSampleSize>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, OBS FROM merged"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Sampling/{RCT_ID}" ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasSampleSize ;
+		rr:objectMap    [
+		rrf:functionCall [
+	 			rrf:function <#ExtractDigits> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "OBS" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+	.
+	
+
+	
+<#TreatmentArmMap>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, OUTCOME FROM merged"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/TreatmentArm/{RCT_ID}" ;
+    	rr:class erct:TreatmentArm ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:hasTimespan ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:Timespan ;
+			];
+	];
+	rr:predicateObjectMap [
+		rr:predicateMap [ 
+		rr:constant erct:takesPlaceIn ;
+		];
+		
+		rr:objectMap [ 
+			rr:constant erct:Country ;
+			];
+		
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasOutcome ;
+		rr:objectMap [ rr:column "OUTCOME" ];
+	] ;	
+	.
+	
+<#JELTripleMap>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, DOI, JEL FROM merged"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/publicationInfo/{RCT_ID}" ;
+		rr:class erct:publicationInfo ;
+	] ;
+
+	rr:predicateObjectMap [
+		rr:predicate erct:hasJELcode ;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractJel> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "JEL" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] 
+	.
+
+
+<#StartDateTripleMap>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, SDATE FROM merged"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Timespan/{RCT_ID}" ;
+		rr:class erct:Timespan ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasStartDate ;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractDate> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "SDATE" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+	.
+	
+	
+<#EndDateTripleMap>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, EDATE FROM merged"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Timespan/{RCT_ID}" ;
+		rr:class erct:Timespan ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasEndDate ;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractDate> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "EDATE" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+	.
+	
+	
+
+<#ResearcherTripleMap>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, PRIM FROM merged"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Researcher/{RCT_ID}" ;
+		rr:class erct:Researcher ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasName ;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractResearcher> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "PRIM" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+	.
+	
+	
+
+<#EmailTripleMap>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RCT_ID, PRIM FROM merged"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Researcher/{RCT_ID}" ;
+		rr:class erct:Researcher ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasEmail ;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractEmail> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "PRIM" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+	.
+	
+	
+	
+<#MDE>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT MDE, RCT_ID FROM merged"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Methodology/{RCT_ID}" ;
+		rr:class erct:Methodology ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasMDE ;
+		rr:objectMap [ rr:column "MDE" ];
+	] ;
+	.
+	
+	
+<#RandomisationIndividual>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT RANDOMIZATION, RCT_ID FROM merged WHERE RANDOMIZATION LIKE 'individual'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Randomized/{RCT_ID}" ;
+		rr:class erct:Randomized ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate rdfs:subClassOf ;
+		rr:object erct:Sampling;
+	] ;
+	.
+
+	
+<#RandomisationClustered>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT NUMCLUSTERS, RANDOMIZATION, RCT_ID FROM merged WHERE NUMCLUSTERS != '' AND NUMCLUSTERS != 'N/A' AND NUMCLUSTERS != 'NA' AND RANDOMIZATION NOT LIKE 'individual' """
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Clustered/{RCT_ID}" ;
+		rr:class erct:Clustered ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate rdfs:subClassOf ;
+		rr:object erct:Sampling;
+	] ;	
+	.
+	
+		
+<#ClusterType>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT NUMCLUSTERS, RANDOMIZATION, RCT_ID FROM merged WHERE NUMCLUSTERS != '' AND NUMCLUSTERS != 'N/A' AND NUMCLUSTERS != 'NA' AND RANDOMIZATION NOT LIKE 'individual' AND NUMCLUSTERS ~* 'village' OR NUMCLUSTERS ~* 'school' OR NUMCLUSTERS ~* 'district'"""
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Clustered/{RCT_ID}" ;
+		rr:class erct:Clustered ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate rdfs:subClassOf ;
+		rr:object erct:Sampling;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:clusteredBy;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractCluster> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "NUMCLUSTERS" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+		rr:predicateObjectMap [
+		rr:predicate erct:hasNoOfClusters;
+		rr:objectMap    [
+	        rrf:functionCall [
+	 			rrf:function <#ExtractDigits> ;
+	 			rrf:parameterBindings (
+	 				[ rr:column "NUMCLUSTERS" ]
+	 			) ;
+	 		] ; 
+	 	]
+	] ;
+	.
+	
+	
+erct:Researcher rdfs:subClassOf erct:Agent .
+erct:Randomized rdfs:subClassOf erct:Sampling .

@@ -1,0 +1,160 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dbpedia: <http://dbpedia.org/ontology/> .
+@prefix erct: <http://www.semanticweb.org/ERCT/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema/> .
+@prefix rrf: <http://kdeg.scss.tcd.ie/ns/rrf#>
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+
+<#Concat>
+	rrf:functionName "concat" ;
+	rrf:functionBody """
+		function concat(var1, var2) {
+		return var1 + " " + var2 ;
+	}
+	""" ;
+.
+
+<#ExtractJel>
+	rrf:functionName "extractJel" ;
+	rrf:functionBody """
+		function extractJel(var1) {
+		if (var1 == null){
+		return null;
+		}
+		//print("1")
+		var re = /(\\w\\d\\d){1}/g;
+		var output = [];
+		while ((match =  re.exec(var1)) !== null) {
+ 		    //print(match);	
+ 		    output.push(match[0]);
+		}
+		//print(output);
+		return(String(output));
+	} 
+	""" ;
+.
+
+<#ExtractDate>
+	rrf:functionName "extractDate" ;
+	rrf:functionBody """
+		function extractDate(date) {
+		
+		    var month = date.slice(0,2);
+		    var day = date.slice(3,5);	
+		    var year = date.slice(6,10);	
+		    //print(month);
+		    //print(day);
+		    //print(year);
+		    newDate = day + "/" + month + "/" + year;
+		    //print(newDate);
+		    var d = new Date(newDate),
+			month = '' + (d.getMonth() + 1),
+			day = '' + d.getDate(),
+			year = d.getFullYear();
+		    //print(d);
+
+		    return d;
+}
+	""" ;
+.
+
+<#ExtractDigits>
+	rrf:functionName "extractDigits" ;
+	rrf:functionBody """
+		function extractDigits(digits) {
+		
+		    var re = /\\d+/;
+		    match =  re.exec(digits);
+		    //print(digits);
+		    print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
+<#ExtractResearcher>
+	rrf:functionName "extractResearcher" ;
+	rrf:functionBody """
+		function extractResearcher(researcher) {
+		
+		    var re = /[^\\s]+\\s+[^\\s]+/;
+		    match =  re.exec(researcher);
+		    //print(researcher);
+		    //print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
+
+
+<#ExtractEmail>
+	rrf:functionName "extractEmail" ;
+	rrf:functionBody """
+		function extractEmail(researcher) {
+		
+		    var re = /[^\\s]+[\\w]+\\@[\\w | \\W]+/;
+		    match =  re.exec(researcher);
+		    //print(researcher);
+		    //print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
+<#ExtractCluster>
+	rrf:functionName "extractCluster" ;
+	rrf:functionBody """
+		function extractCluster(cluster) {
+		
+		    var re = /(household)|(Household)|(Village)|(village)|(school)|(School)|(District)|(district)|(firm) {1}?/;
+		    match =  re.exec(cluster);
+		    //print(cluster);
+		    print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
+<#ExtractDemVar>
+	rrf:functionName "extractDemVar" ;
+	rrf:functionBody """
+		function extractDemVar(demVar) {
+		
+		    var re = /(gender)|(Gender)|(county)|(County)|(geographic)|(exam)|(Exam){1}?/;
+		    match =  re.exec(demVar);
+		    print(demVar);
+		    print(match);
+
+		    return String(match);
+}
+	""" ;
+.
+
+
+
+<#CountryMapping>
+	a rr:TriplesMap ;
+	rr:logicalTable [
+		rr:sqlQuery """SELECT ID, COUNTRYNAME, CODE, STATISTIC, 2019 FROM wb_data """
+	] ;
+	rr:subjectMap [
+		rr:template "http://www.semanticweb.org/Country/{ID}" ;
+		rr:class erct:Country ;
+	] ;
+	rr:predicateObjectMap [
+		rr:predicate erct:hasName ;
+		rr:objectMap [ rr:column "COUNTRYNAME" ];
+	] ;	
+		rr:predicateObjectMap [
+		rr:predicate erct:hasISOAlpha3 ;
+		rr:objectMap [ rr:column "CODE" ];
+	] ;
+	
+	.
