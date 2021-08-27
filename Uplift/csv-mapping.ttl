@@ -74,7 +74,7 @@
 		    var re = /\\d+/;
 		    match =  re.exec(digits);
 		    //print(digits);
-		    print(match);
+		    //print(match);
 
 		    return String(match);
 }
@@ -89,14 +89,12 @@
 		    var re = /[^\\s]+\\s+[^\\s]+/;
 		    match =  re.exec(researcher);
 		    //print(researcher);
-		    print(match);
+		    //print(match);
 
 		    return String(match);
 }
 	""" ;
 .
-
-
 
 <#ExtractEmail>
 	rrf:functionName "extractEmail" ;
@@ -121,9 +119,9 @@
 		    var re = /(household)|(Household)|(Village)|(village)|(school)|(School)|(District)|(district)|(firm) {1}?/;
 		    match =  re.exec(cluster);
 		    //print(cluster);
-		    print(match);
+		    //print(match[0]);
 
-		    return String(match);
+			return(match[0]);
 }
 	""" ;
 .
@@ -134,11 +132,18 @@
 		function extractDemVar(demVar) {
 		
 		    var re = /(gender)|(Gender)|(county)|(County)|(geographic)|(exam)|(Exam){1}?/;
-		    match =  re.exec(demVar);
-		    print(demVar);
-		    print(match);
 
-		    return String(match);
+		    match =  re.exec(demVar);
+		    //print(demVar);
+		    //print(typeof match);
+
+			if (match != null){
+		   	 	print(match[0]);
+				return String(match[0]);
+			}
+
+			return(null);
+
 }
 	""" ;
 .
