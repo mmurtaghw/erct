@@ -1,0 +1,133 @@
+CQ1
+
+
+PREFIX erct: <http://www.semanticweb.org/ERCT/> 
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+select  ?country ?countryCode ?DemVar ?countryName where {
+    ?country erct:hasISOAlpha2 ?countryCode.
+    ?country erct:hasName ?countryName.
+    FILTER (?countryCode IN ("RW", "KE", "UG", "TZ", "BU", "SS", "SD") ).
+    ?Stratified a erct:Stratified;
+         erct:stratifiedBy ?DemVar.
+         FILTER regex(?DemVar, "gender", "i").
+}
+
+
+CQ2
+
+PREFIX erct: <http://www.semanticweb.org/ERCT/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?treatment ?country ?countryName ?indicator ?value ?type ?treatmentType where {
+    	?treatment erct:takesPlaceIn ?country.
+    	?treatment erct:hasInterventionType ?treatmentType.
+        ?country erct:hasIndicator ?indicator.
+        ?indicator erct:hasValue ?value.
+        ?indicator erct:hasIndicatorType ?type.
+        ?country erct:hasName ?countryName.
+        FILTER (?type = "Net Savings" && ?treatmentType = "finance" && ?value > -10000).  
+		}
+    ORDER BY DESC(?value) limit 200
+
+
+CQ3
+
+PREFIX erct: <http://www.semanticweb.org/ERCT/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?treatment ?country ?countryName ?indicator ?value ?type ?treatmentType where {
+    	?treatment erct:takesPlaceIn ?country.
+    	?treatment erct:hasInterventionType ?treatmentType.
+        ?country erct:hasIndicator ?indicator.
+        ?indicator erct:hasValue ?value.
+        ?indicator erct:hasIndicatorType ?type.
+        ?country erct:hasName ?countryName.
+        FILTER (?type = "HDI" && ?treatmentType = "education"  && ?value > 0.8).  
+		}
+    ORDER BY (?value) 
+
+CQ4
+
+PREFIX erct: <http://www.semanticweb.org/ERCT/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?treatment ?country ?countryName ?indicator ?value ?type ?treatmentType where {
+    	?treatment erct:takesPlaceIn ?country.
+    	?treatment erct:hasInterventionType ?treatmentType.
+        ?country erct:hasIndicator ?indicator.
+        ?indicator erct:hasValue ?value.
+        ?indicator erct:hasIndicatorType ?type.
+        ?country erct:hasName ?countryName.
+        FILTER (?type = "HDI" && ?value < 0.5).
+        FILTER regex(?treatmentType, "firms_and_productivity", "i").
+		}
+    ORDER BY (?value) 
+
+
+CQ5
+
+PREFIX erct: <http://www.semanticweb.org/ERCT/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?treatment ?country ?countryName ?indicator ?outcome ?value ?type ?treatmentType where {
+    	?treatment erct:takesPlaceIn ?country.
+    	?treatment erct:hasInterventionType ?treatmentType.
+    	?treatment erct:hasOutcome ?outcome.
+        ?country erct:hasIndicator ?indicator.
+        ?indicator erct:hasValue ?value.
+        ?indicator erct:hasIndicatorType ?type.
+        ?country erct:hasName ?countryName.
+        FILTER (?type = "Enrollment in Primary Education" && ?treatmentType = "education"  && ?value < 70).  
+		}
+    ORDER BY (?value) 
+
+
+CQ6
+
+PREFIX erct: <http://www.semanticweb.org/ERCT/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?treatment ?country ?countryName ?indicator ?value ?type ?treatmentType where {
+        ?country erct:hasIndicator ?indicator.
+        ?indicator erct:hasValue ?value.
+    	?treatment erct:takesPlaceIn ?country.
+    	?treatment erct:hasInterventionType ?treatmentType.
+        ?indicator erct:hasIndicatorType ?type.
+        ?country erct:hasName ?countryName.
+        FILTER (?type = "Doctors per 1000").
+        FILTER regex(?treatmentType, "HEALTH", "i").
+		}
+    ORDER BY (?value) LIMIT 100
+
+CQ7
+
+PREFIX erct: <http://www.semanticweb.org/ERCT/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?treatment ?country ?countryName ?outcome ?indicator ?value ?type ?treatmentType where {
+    	?treatment erct:takesPlaceIn ?country.
+    	?treatment erct:hasInterventionType ?treatmentType.
+    	?treatment erct:hasOutcome ?outcome.
+        ?country erct:hasIndicator ?indicator.
+        ?indicator erct:hasValue ?value.
+        ?indicator erct:hasIndicatorType ?type.
+        ?country erct:hasName ?countryName.
+        FILTER (?type = "GDP").
+        FILTER regex(?treatmentType, "finance", "i").
+		}
+    ORDER BY (?value) limit 100
+
+CQ8
+
+PREFIX erct: <http://www.semanticweb.org/ERCT/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?treatment ?country ?outcome ?treatmentType where {
+    	?treatment erct:takesPlaceIn ?country.
+    	?treatment erct:hasInterventionType ?treatmentType.
+    	?treatment erct:hasOutcome ?outcome.
+        FILTER regex(?treatmentType, "agriculture", "i").
+		}
+    ORDER BY (?value) limit 100
+
