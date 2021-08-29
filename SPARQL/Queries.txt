@@ -16,6 +16,24 @@ select  ?country ?countryCode ?DemVar ?countryName where {
 
 CQ2
 
+Query a:
+
+PREFIX erct: <http://www.semanticweb.org/ERCT/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select  ?unique (COUNT(?treatment) * 0.05 as ?count) where {
+    	?treatment erct:takesPlaceIn ?country.
+    	?treatment erct:hasInterventionType ?treatmentType.
+        ?country erct:hasIndicator ?indicator.
+        ?indicator erct:hasValue ?value.
+        ?indicator erct:hasIndicatorType ?type.
+        ?country erct:hasName ?countryName.
+        FILTER (?type = "Net Savings" && ?treatmentType = "finance" && ?value > -10000).  
+		}
+	GROUP BY ?unique
+
+Query b:
+
 PREFIX erct: <http://www.semanticweb.org/ERCT/> 
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
@@ -28,7 +46,7 @@ select ?treatment ?country ?countryName ?indicator ?value ?type ?treatmentType w
         ?country erct:hasName ?countryName.
         FILTER (?type = "Net Savings" && ?treatmentType = "finance" && ?value > -10000).  
 		}
-    ORDER BY DESC(?value) limit 200
+    ORDER BY DESC(?value) limit 58
 
 
 CQ3
@@ -85,6 +103,26 @@ select ?treatment ?country ?countryName ?indicator ?outcome ?value ?type ?treatm
 
 CQ6
 
+Query a:
+
+PREFIX erct: <http://www.semanticweb.org/ERCT/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select  ?unique (COUNT(?treatment) * 0.1 as ?count) where { 
+        ?country erct:hasIndicator ?indicator.
+        ?indicator erct:hasValue ?value.
+    	?treatment erct:takesPlaceIn ?country.
+    	?treatment erct:hasInterventionType ?treatmentType.
+        ?indicator erct:hasIndicatorType ?type.
+        ?country erct:hasName ?countryName.
+        FILTER (?type = "Doctors per 1000").
+        FILTER regex(?treatmentType, "HEALTH", "i").
+		}
+	GROUP BY ?unique
+
+
+Query b:
+
 PREFIX erct: <http://www.semanticweb.org/ERCT/> 
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
@@ -98,9 +136,32 @@ select ?treatment ?country ?countryName ?indicator ?value ?type ?treatmentType w
         FILTER (?type = "Doctors per 1000").
         FILTER regex(?treatmentType, "HEALTH", "i").
 		}
-    ORDER BY (?value) LIMIT 100
+        ORDER BY (?value) LIMIT 135
+
 
 CQ7
+
+Query a:
+
+PREFIX erct: <http://www.semanticweb.org/ERCT/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select  ?unique (COUNT(?treatment)*0.1 as ?count) where { 
+    	?treatment erct:takesPlaceIn ?country.
+    	?treatment erct:hasInterventionType ?treatmentType.
+    	?treatment erct:hasOutcome ?outcome.
+        ?country erct:hasIndicator ?indicator.
+        ?indicator erct:hasValue ?value.
+        ?indicator erct:hasIndicatorType ?type.
+        ?country erct:hasName ?countryName.
+        FILTER (?type = "GDP").
+        FILTER regex(?treatmentType, "finance", "i").
+		}
+	GROUP BY ?unique
+
+
+
+Query b:
 
 PREFIX erct: <http://www.semanticweb.org/ERCT/> 
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -116,7 +177,8 @@ select ?treatment ?country ?countryName ?outcome ?indicator ?value ?type ?treatm
         FILTER (?type = "GDP").
         FILTER regex(?treatmentType, "finance", "i").
 		}
-    ORDER BY (?value) limit 100
+    ORDER BY (?value) limit 108
+
 
 CQ8
 

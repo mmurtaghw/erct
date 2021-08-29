@@ -14,7 +14,6 @@ import re
 from bs4 import BeautifulSoup
 import numpy as np
 
-#os.chdir("/Users/matt/Documents/CompSci/GMTK Analysis")
 
 links = pd.read_csv("links2021.csv")
 
@@ -24,10 +23,6 @@ driver = webdriver.Chrome("chromedriver")
 pagesToScrape =  2000
 startPage = 30
 
-comments = []
-madeMusics = []
-madeArts = []
-ratingsNumbers = []
 titles = []
 Rows = []
 j = 0
@@ -109,91 +104,3 @@ for i in range(startPage,pagesToScrape):
         print(output)
         df.to_csv("RIDIE" + str(i) + ".csv")
         #output = pd.concat([df, output], axis=0, sort = False, join="inner")        
-
-
-    # for element in content:
-    #     print(element.text)
-
-    # description = None
-    # mydivs = soup.find_all("dd")
-    # if mydivs is not None:
-    #     for div in mydivs:               
-    #         soup = BeautifulSoup(description)
-    #         print(soup.get_text())
-    # else:
-    #     description = None
-    #     print(description)
-
-
-
-#         data = []
-#         table = soup.find('div', attrs={'class':'game_info_panel_widget'})
-#         print(table)
-#         if table is not None:
-#             table_body = table.find('tbody')
-
-#             rows = table_body.find_all('tr')
-#             for row in rows:
-#                 cols = row.find_all('td')
-#                 cols = [ele.text.strip() for ele in cols]
-#                 data.append([ele for ele in cols if ele]) # Get rid of empty values
-#             print(data)
-
-#             status = None
-#             platforms = None
-#             genre = None
-#             tags = None
-#             publishDate = None
-#             author = None
-
-            
-#             for row in data:
-#                 if (row[0] == "Published"):
-#                     publishDate = row[1]
-#                 if (row[0] == "Status"):
-#                     status = row[1]
-#                 if (row[0] == "Author"):
-#                     author = row[1]
-#                 if (row[0] == "Genre"):
-#                     genre = row[1]
-#                 if (row[0] == "Tags"):
-#                     tags = row[1]
-#                 if (row[0] == "Platforms"):
-#                     platforms = row[1]
-#     except:
-#         pass
-#     # status = driver.find_element_by_xpath("/html/body/div[3]/div/div[2]/div[2]/div[1]/div[2]/div[2]/div/table/tbody/tr[2]/td[2]/a").text
-#     # platforms = driver.find_element_by_xpath("/html/body/div[3]/div/div[2]/div[2]/div[1]/div[2]/div[2]/div/table/tbody/tr[3]/td[2]/a").text
-#     # genre = driver.find_element_by_xpath("/html/body/div[3]/div/div[2]/div[2]/div[1]/div[2]/div[2]/div/table/tbody/tr[5]/td[2]/a").text
-#     # tags = driver.find_element_by_xpath("/html/body/div[3]/div/div[2]/div[2]/div[1]/div[2]/div[2]/div/table/tbody/tr[6]/td[2]").text
-
-
-#     #     status = None
-#     #     platforms = None
-#     #     genre = None
-#     #     tags = None
-
-
-
-#     #location.send_keys(Keys.COMMAND + 't') 
-
-#     #driver.find_element_by_tag_name('body').send_keys(Keys.COMMAND + 'w') 
-
-
-#     # driver.switch_to.window(driver.window_handles[1])
-
-#     #driver.get("http://stackoverflow.com")
-
-#     # /html/body/div[2]/div[2]/div/div[2]/div[2]/div/div/div[1]/div[1]/a
-#     # /html/body/div[2]/div[2]/div/div[2]/div[2]/div/div/div[2]/div[1]/a
-#     # /html/body/div[2]/div[2]/div/div[2]/div[2]/div/div/div[4]/div[1]/a
-
-#     # print(price)
-    
-#     # print(description)
-    
- 
-#     Rows.append((title,reviews,madeArt,madeMusic, numRatings, noComments, description, status, platforms, genre, tags, author, publishDate))
-#     df = pd.DataFrame(Rows,columns=['Title','reviews','madeArt','madeMusic', 'numRatings', "noComments", "description", "status", "platforms", "genre", "tags", "author", "Published" ])
-#     df.to_csv('output2021 1-3000 .csv')
-# #Links = list(dict.fromkeys(Links)) 
