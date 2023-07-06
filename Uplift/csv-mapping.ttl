@@ -171,7 +171,7 @@
 <#RCTMAP>
 	a rr:TriplesMap ;
 	rr:logicalTable [
-		rr:sqlQuery """SELECT RCT_ID FROM merged"""
+		rr:sqlQuery """SELECT RCT_ID, TITLE FROM merged"""
 	] ;
 	rr:subjectMap [
 		rr:template "http://www.semanticweb.org/TrialRecord/{RCT_ID}" ;
@@ -227,7 +227,11 @@
 			];
 		
 	] ;
-	.	
+		rr:predicateObjectMap [
+		rr:predicate erct:hasTitle ;
+		rr:objectMap [ rr:column "TITLE" ];
+	] ;
+	.
 
 
 
